@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, createContext, useEffect } from "react";
-import wordSet from "./components/diccionary";
+import wordArr from "./components/diccionary";
 import { boardDefault } from "./components/defaultBoard";
 import React from "react";
 import Board from "./components/Board";
@@ -14,7 +14,7 @@ export type expContext = {
   board: Board;
   setBoard: (c: Board) => void;
   attempt: Attempt;
-  setAttempt: (c: Attempt) => void;
+  setAttempt: (p: Attempt) => void;
   solution: Solution;
 };
 
@@ -23,18 +23,17 @@ export const AppContext = createContext<expContext>({
   setBoard: () => {},
   attempt: { row: 0, letterPos: 0 },
   setAttempt: () => {},
-  solution: ["H", "O", "U", "S", "E"],
+  solution: ["", "", "", "", ""],
 });
 
 //valiables: palabra a adivinar obtenida aleatoriamente del json, palabra generada en el intento.
 function App() {
   const [board, setBoard] = useState<Board>(boardDefault);
-  const [solution, setSolution] = useState<string[]>(["H", "O", "U", "S", "E"]);
+  const [solution, setSolution] = useState<string[]>(["", "", "", "", ""]);
   const [attempt, setAttempt] = useState({ row: 0, letterPos: 0 });
 
   useEffect(() => {
-    setSolution(wordSet[Math.round(Math.random() * wordSet.length)].split(""));
-    console.log(solution);
+    setSolution(wordArr[Math.round(Math.random() * wordArr.length)].split(""));
   }, []);
 
   return (

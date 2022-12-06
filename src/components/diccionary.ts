@@ -1,4 +1,4 @@
-const wordSet = [
+const wordArr = [
   "aahed",
   "aalii",
   "aargh",
@@ -12972,4 +12972,5 @@ const wordSet = [
   "rural",
   "shave",
 ];
-export default wordSet;
+
+export default wordArr;

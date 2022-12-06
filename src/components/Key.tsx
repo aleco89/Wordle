@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AppContext } from "../App";
+import wordArr from "./diccionary";
 
 interface Props {
   keyValue: string;
@@ -7,10 +8,19 @@ interface Props {
 
 const Key: React.FC<Props> = ({ keyValue }) => {
   const { board, setBoard, attempt, setAttempt } = useContext(AppContext);
+  const wordSet = new Set(wordArr);
+
   const passLetter = () => {
     if (keyValue === "ENTER") {
       if (attempt.letterPos === 5) {
-        setAttempt({ row: attempt.row + 1, letterPos: 0 });
+        let currWord = "";
+        for (let i = 0; i < 5; ++i) {
+          currWord += board[attempt.row][i];
+        }
+        console.log(currWord + "es la current");
+        if (wordSet.has(currWord.toLowerCase())) {
+          setAttempt({ row: attempt.row + 1, letterPos: 0 });
+        }
       } else {
         return;
       }
@@ -28,6 +38,7 @@ const Key: React.FC<Props> = ({ keyValue }) => {
       setAttempt({ ...attempt, letterPos: attempt.letterPos + 1 });
     }
   };
+
   return (
     <div
       className={keyValue === "ENTER" || keyValue === "DEL" ? "bigKey" : "key"}
